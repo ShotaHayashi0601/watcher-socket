@@ -1,0 +1,51 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+.env
+.env.*
+.DS_Store
+
+# Next.js
+.next/
+out/
+
+# Logs
+logs
+*.log
+*.log.*
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# OS
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Misc
+*.sublime-workspace
+*.sublime-project
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Miscellaneous
+coverage/
+*.tgz
+package-lock.json
+
+
