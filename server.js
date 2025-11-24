@@ -13,6 +13,10 @@ const handler = app.getRequestHandler()
 
 const server = express()
 const httpServer = createServer(server)
+
+// JSON middleware
+server.use(express.json())
+
 // ===========================
 // 2. Setup WebSocket Server
 // ===========================
@@ -53,14 +57,29 @@ wss.on('connection', (ws, req) => {
 })
 
 // ===========================
-// 3. Handle Next.js Routing
+// 3. Health Check Endpoint
+// ===========================
+server.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    websocket: {
+      connectedClients: wss.clients.size,
+      activeProducts: watchers.size,
+    },
+  })
+})
+
+// ===========================
+// 4. Handle Next.js Routing
 // ===========================
 server.all('*', (req, res) => {
   return handler(req, res)
 })
 
 // ===========================
-// 4. Start the Server
+// 5. Start the Server
 // ===========================
 httpServer.listen(process.env.PORT, (err) => {
   if (err) throw err
