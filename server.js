@@ -45,6 +45,17 @@ wss.on('connection', (ws, req) => {
     } else {
       watchers.set(productId, updatedCount)
     }
+    // ★ 全クライアントに「人数減ったよ」と通知
+    wss.clients.forEach((client) => {
+      if (client.readyState === webSocket.OPEN) {
+        client.send(
+          JSON.stringify({
+            productId,
+            count: updatedCount,
+          })
+        )
+      }
+    })
   })
   //Send initial message
   ws.send(
